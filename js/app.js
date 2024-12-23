@@ -1,14 +1,31 @@
 let listaDeAmigos = [];
+
 function adicionar() {
     let nomeAmigo = document.getElementById('nome-amigo');
-    listaDeAmigos.push(nomeAmigo.value)
+    if (nomeAmigo == '') {
+        alert('Informe um nome!');
+        return;
+    }
+    
+    if (listaDeAmigos.includes(nomeAmigo.value)) {
+        alert('Nome ja adicionado!');
+        return;
+    }
+    
 
     let listaComNomes = document.getElementById('lista-amigos')
+    
+    listaDeAmigos.push(nomeAmigo.value)    
+    
     listaComNomes.innerText = listaDeAmigos
     nomeAmigo.value = '';
 }
 
 function sortear() {
+    if (listaDeAmigos.length < 4) {
+        alert('Adicione pelo menos 4 amigos!');
+        return;
+    }
     embaralha(listaDeAmigos);
     let listaSorteio = document.getElementById('lista-sorteio');
     for (let i = 0; i < listaDeAmigos.length; i++) {
@@ -22,10 +39,9 @@ function sortear() {
 
 function reiniciar() {
     listaDeAmigos = [];
-    let listaComNomes = document.getElementById('lista-amigos');
-    let listaSorteio = document.getElementById('lista-sorteio');
-    listaComNomes.innerText = '';
-    listaSorteio.innerText = '';
+    listaComNomes = document.getElementById('lista-amigos').innerText = '';
+    listaSorteio = document.getElementById('lista-sorteio').innerText = '';
+    
 }
 
 function embaralha(lista) {
@@ -33,7 +49,6 @@ function embaralha(lista) {
 
         const indiceAleatorio = Math.floor(Math.random() * indice);
 
-        // atribuição via destructuring
         [lista[indice - 1], lista[indiceAleatorio]] =
             [lista[indiceAleatorio], lista[indice - 1]];
     }
